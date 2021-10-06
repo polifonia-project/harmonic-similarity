@@ -158,7 +158,7 @@ def main():
     Parallel(n_jobs=args.num_threads)(delayed(sonify_chord_sequence)\
       (track_name, chord_annotations, soundfont,
        out_dir, args.fix_times, args.program) \
-         for _, (track_name, chord_annotations) in tqdm(data.items()))
+         for track_name, chord_annotations in tqdm(data.items()))
     
     print('Done!')
 
