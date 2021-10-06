@@ -12,6 +12,7 @@ import soundfile as sf
 
 import joblib
 from joblib import Parallel, delayed
+from tqdm import tqdm
 
 import ChordalPy
 
@@ -99,10 +100,10 @@ def get_harmonic_notesequence(chord_annotations:list, fix_times=False, prog=0):
 
 def sonify_chord_sequence(
   track_name, chord_annotations, soundfont,
-  out_dir="./", fix_times=False):
+  out_dir="./", fix_times=False, prog=0):
 
   chord_ns = get_harmonic_notesequence(
-    chord_annotations, fix_times=fix_times)
+    chord_annotations, fix_times=fix_times, prog=prog)
 
   save_notesequence(
     chord_ns, os.path.join(out_dir, "midi"), f"{track_name}.mid")
@@ -131,6 +132,8 @@ def main():
                         help='Number of threads to use for parallel execution.')
     parser.add_argument('--fix_times', action='store_true', default=False,
                         help='Whether the durations should be discarded.')
+    parser.add_argument('--program', action='store', type=int, default=0,
+                        help='Program MIDI number of the instrument to use.')
     
     # Logging and checkpointing 
     parser.add_argument('--log_dir', action='store',
@@ -153,8 +156,9 @@ def main():
     print("Found {} chord sequences to sonify".format(len(data)))
     print(f"Running sonification using {args.num_threads} threads. Be patient.")
     Parallel(n_jobs=args.num_threads)(delayed(sonify_chord_sequence)\
-      (track_name, chord_annotations, soundfont, out_dir, args.fix_times) \
-        for track_name, chord_annotations in data.items())
+      (track_name, chord_annotations, soundfont,
+       out_dir, args.fix_times, args.program) \
+         for _, (track_name, chord_annotations) in tqdm(data.items()))
     
     print('Done!')
 
