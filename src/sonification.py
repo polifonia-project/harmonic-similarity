@@ -54,7 +54,7 @@ def synthesise_sequence(
   return wave
 
 
-def get_harmonic_notesequence(chord_annotations:list, fix_times=False):
+def get_harmonic_notesequence(chord_annotations:list, fix_times=False, prog=0):
   """
   Create a note-sequence encoding the given harmonic progression.
   """
@@ -88,7 +88,7 @@ def get_harmonic_notesequence(chord_annotations:list, fix_times=False):
       
       for pitch in chord_pitches:  # add each note constituent
           chord_ns.notes.add(
-              pitch=pitch, velocity=80,
+              pitch=pitch, velocity=80, program=prog,
               start_time=start_time, end_time=end_time)
 
   chord_ns.total_time = chord_ns.notes[-1].end_time
