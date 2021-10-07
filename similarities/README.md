@@ -3,6 +3,9 @@
 In the folder [split_global](https://github.com/polifonia-project/harmonic-similarity/tree/main/similarities/split_global) you can find more than 400 files, each of which containing 15 similarity pairs. 
 
 The files are all ```.xlsx``` and their structure is the following:
+
+![Screenshot 2021-10-07 at 20 03 14](https://user-images.githubusercontent.com/44606182/136439284-73e9b792-4d41-4dbb-ad1d-00c154514c78.png)
+
 * ```track_1``` and ```track_2``` columns: contain the id of the two tracks among which the similarity was calculated;
 
 * ```pattern_track_1``` and ```pattern_track_2``` columns: contain the longest harmonic sequence(s) that the two tracks have in common. If there are more than one longest sequence in common they are represented in different comma separated lists;
