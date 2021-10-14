@@ -1,6 +1,7 @@
-
 import os
 from itertools import groupby
+from datetime import timedelta
+
 
 def is_file(parser, f_arg):
       if not os.path.exists(f_arg):
@@ -20,3 +21,7 @@ def flatten_list(t:list):
 
 def remove_consecutive_repeats(t):
     return [x[0] for x in groupby(t)]
+
+
+def convert_time(t):
+    return str(timedelta(seconds=t))

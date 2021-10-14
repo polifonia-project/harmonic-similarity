@@ -1,15 +1,24 @@
 from itertools import combinations
 import joblib
 
+import pandas as pd
 from nltk import ngrams as nltk_ngrams
 
-DATABUNDLE_PATH = "./sonar_databundle.joblib"
-OUTPUT_FILE = "sonar_ngrams.joblib"  # name of the joblib output file
+DATABUNDLE_PATH = "../setup/sonar_databundle.joblib"
+OUTPUT_FILE = "../sonar_ngrams.joblib"  # name of the joblib output file
 
-CHORDS_PATH = "./sonar_databundle.joblib"
-NGRAMS_PATH = "./sonar_ngrams.joblib"
-INDEX_PATH = "./sonar_ngrams_index.joblib"
-ENCODED_PATH = "./sonar_encoding_bundle.joblib"
+CHORDS_PATH = "../setup/sonar_databundle.joblib"
+NGRAMS_PATH = "../setup/sonar_ngrams.joblib"
+INDEX_PATH = "../setup/sonar_ngrams_index.joblib"
+ENCODED_PATH = "../setup/sonar_encoding_bundle.joblib"
+DATASET_META = "../setup/sonar_datasets_meta.csv"
+
+
+def open_meta(meta_path):
+    with open(meta_path, 'r') as mp:
+        data = pd.read_csv(mp)
+        meta = pd.DataFrame(data)
+    return meta['id'].tolist(), meta['title'].tolist(), meta['artist'].tolist(), meta['path'].tolist()
 
 
 def extract_ngrams(track_name: str, sequence: list, n_start: int = 2):
@@ -99,9 +108,8 @@ def open_chord(chords_path: str):
     with open(chords_path, "rb") as cd:
         chords = joblib.load(cd)
     raw_chord = chords['preproc']
-    encoded_chord = chords['encoded']
 
-    return raw_chord, encoded_chord
+    return raw_chord
 
 
 def open_ngram(ngram_path: str):
@@ -192,6 +200,15 @@ def get_raw_ngrams(indexes, raw_sequence: dict):
     return raw_ngrams, raw_position
 
 
+def ngram_index(sequence, ngram):
+    # print(list(nltk_ngrams(sequence, len(ngram))))
+    return list(nltk_ngrams(sequence, len(ngram))).index(tuple(ngram))
+
+
+def single_ngram_position(track_sequence, n_gram):
+    return ngram_index(track_sequence, n_gram), len(n_gram)
+
+
 def save_joblib(ngrams_track_dict, out_file_name: str):
     """
     Given a file, saves it in a joblib format with the name specified in the input.
@@ -205,7 +222,7 @@ if __name__ == '__main__':
     # process_ngrams(DATABUNDLE_PATH, OUTPUT_FILE, save=False)
 
     # OPEN Joblib FILES
-    # raw, encoded = open_chord(CHORDS_PATH)
+    # raw = open_chord(CHORDS_PATH)
     # ngram = open_ngram(NGRAMS_PATH)
 
     # print(encoded)
