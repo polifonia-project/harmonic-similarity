@@ -13,6 +13,36 @@ from bokeh.palettes import Greys256, Blues256, Spectral8
 from bokeh.transform import linear_cmap
 
 
+filtration_code = '''
+    const new_sources = [];
+    const new_targets = [];
+    const new_weights = [];
+    let n = sources.length;
+
+    for (let i = 0; i < n; i++) {
+        if (weights[i] >= this.value[0] && weights[i] <= this.value[1]) {
+            new_sources.push(sources[i]);
+            new_targets.push(targets[i]);
+            new_weights.push(weights[i]);
+        }
+    }
+    var new_data_edge = {'start': new_sources, 'end': new_targets, 'weight': new_weights};
+    graph_setup.edge_renderer.data_source.data = new_data_edge;
+    console.log('Min: ' + this.value[0] + ' Max: ' + this.value[1] + ' Filtered edges: ' + new_sources.length)
+'''
+
+node_info_code = '''
+    var text = "";
+    if (this.value in meta) {
+        text='<b>Title:</b> ' + meta[this.value]['title'] + '<br>';
+        text+='<b>Artist:</b> ' + meta[this.value]['artist'] + '<br>';
+        text+='<b>Link:</b> ' + '<a href=' + meta[this.value]['link'] + ', target="_blank">Listen on Soundcloud</a>';
+    } else {
+        text=this.value + " was not found in the graph!";
+    }
+    div.text = text;
+'''
+
 def compute_similarity_graph(hsim_map:dict, encdec=None):
     """
     Computes an undirected graph from a nested dictionary expressing the
