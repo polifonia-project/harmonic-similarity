@@ -92,12 +92,12 @@ def align_data(hsim_map, encoded_chord, track_title):
                 cp_match = {"cpMatchId": f"{i + 1:05d}",
                             "humanSimScore": None,
                             'cpaA': {
-                                "id": '_'.join(pattern_raw_a[num]),
+                                "id": tr_name + '_' + '_'.join(pattern_raw_a[num]),
                                 "start": pattern_time_a[0][0],
                                 "end": pattern_time_a[0][1],
                             },
                             'cpaB': {
-                                "id": '_'.join(pattern_raw_b[num]),
+                                "id": m + '_' + '_'.join(pattern_raw_b[num]),
                                 "start": pattern_time_b[0][0],
                                 "end": pattern_time_b[0][1],
                             }
@@ -115,7 +115,6 @@ def align_data(hsim_map, encoded_chord, track_title):
 
     with open("../harmonic_similarity.json", "w") as outfile:
         json.dump({'harSimPairs': all_all}, outfile, indent=4)
-
 
     return all_all
 
