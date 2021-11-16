@@ -25,10 +25,8 @@ related-components:
     - Isophonics
     - Schubert-Winterreise dataset
     - JAAH
-  
 bibliography: 
-  - "A simple local harmonic similarity function based on shared repeated chord structures" (manuscript in progress)
-  
+  - "A simple local harmonic similarity function based on shared repeated chord structures" (manuscript in progress)  
 ---
 
 # harmonic-similarity
