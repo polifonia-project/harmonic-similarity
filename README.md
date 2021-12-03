@@ -80,7 +80,7 @@ Please, cite this paper if you use the code in this repository as part of a publ
 
 ```
 inproceedings{deberardinis2021lharp,
-  title={The Multiple Voices of Musical Emotions: Source Separation for Improving Music Emotion Recognition Models and Their Interpretability},
+  title={A local harmonic similarity function based on shared repeated chord structures},
   author={de Berardinis, Jacopo and Meroño-Peñuela, Albert and Poltronieri, Andrea and Presutti, Valentina},
   booktitle={Manuscript under review},
   year={2021}
