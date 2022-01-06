@@ -1,7 +1,7 @@
 ---
 id: LHARP
 name: Local Harmonic Agreement based on Recurrent Patterns
-brief-description: A method for computing harmonic similarity from symbolic sequences, based on shared recurring harmonic structures.
+description: A method for computing harmonic similarity from symbolic sequences, based on shared recurring harmonic structures.
 type: Repository
 release-date: 15-10-2021
 release-number: v0.1
@@ -21,10 +21,9 @@ links:
 running-instance: n/a.
 credits: J. de Berardinis (KCL), A. Poltronieri (UniBo)
 related-components:
-  - dataset 
-    - Isophonics
-    - Schubert-Winterreise dataset
-    - JAAH
+  - Isophonics
+  - Schubert-Winterreise dataset
+  - JAAH
 bibliography: 
   - "A simple local harmonic similarity function based on shared repeated chord structures" (manuscript in progress)  
 ---
